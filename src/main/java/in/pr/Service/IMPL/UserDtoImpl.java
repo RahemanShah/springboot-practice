@@ -26,9 +26,9 @@ public class UserDtoImpl implements UserService {
 
 	@Override
 	public User getOneUser(Integer id) {
-		
-	  Optional<User> findById = userRepo.findById(id);
-		return userRepo.save(findById.get());
+	    // Use orElseThrow to handle the case when the user is not found
+	    return userRepo.findById(id)
+	            .orElseThrow(() -> new UnAuthorizedException("User ID not found: " + id));
 	}
 
 	@Override
